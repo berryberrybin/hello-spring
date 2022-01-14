@@ -8,7 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MemberController {
@@ -29,23 +32,25 @@ public class MemberController {
     }
      */
 
-    @GetMapping("/members/new")
-    public String createForm(){
+    @GetMapping("/members/new") // 생성할 화면을 보여줌
+    public String createForm() {
         return "members/createMemberForm";
     }
 
-    @PostMapping("/members/new")
-    public String create (MemberForm form){
+
+    // <form action="/members/new" method="post"> 등록버튼을 눌렀을때 @PostMapping("/members/new")로 요청이 옴
+    @PostMapping("/members/new") // 멤버 추가 API
+    public String create(MemberForm form) {
         Member member = new Member();
         member.setName(form.getName());
 
         memberService.join(member);
 
-        return "redirect:/";
+        return "redirect:/"; // 다시 홈페이지로 돌아감
     }
 
     @GetMapping("/members")
-    public String list(Model model){
+    public String list(Model model) {
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberlist";

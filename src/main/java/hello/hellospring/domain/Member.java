@@ -1,5 +1,6 @@
 package hello.hellospring.domain;
 
+// 도메인 : data class : getter, setter로 이루어져있음
 public class Member {
     private Long id;
     private String name;
